@@ -1,0 +1,26 @@
+
+$ContainerWidth: 80%;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+  padding: 50px 20px 20px;
+  box-sizing: border-box;
+  
+  .qr-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: $ContainerWidth;
+    margin-top: 20px;
+
+    .qrcode {
+      width: 300px;
+      // height: 200px;
+    }
+  }
+
+}
