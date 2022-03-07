@@ -13,7 +13,7 @@ const QRCodePreview = () => {
   useLayoutEffect(() => {
     // const text = decodeURIComponent(url);
     console.log('will gen qrcode:', encodeUrl);
-    QRCode.toCanvas(document.getElementById('qrcode'), `${baseUrl}/preview/${encodeUrl}`, {
+    QRCode.toCanvas(document.getElementById('qrcode'), `${baseUrl}#/preview/${encodeUrl}`, {
       width: 300
     })
     .then(function (error) {

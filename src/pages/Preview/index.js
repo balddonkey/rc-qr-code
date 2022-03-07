@@ -8,21 +8,13 @@ import { useParams } from 'react-router-dom';
 
 const Preview = (props) => {
 
-  const { url } = useParams();
-  const file = decodeURIComponent(url);
+  const { url: file } = useParams();
 
+  console.log('on preview:', file);
   const download = useCallback(() => {
-    console.log('on download')
     fetch(file, { method: 'GET'})
     .then(res => {
-      console.log('download done:', res);
       res.blob().then(blob => {
-        const fr = new FileReader();
-        fr.onload = (t, ev) => {
-          console.log('zzz:', t, ev);
-        }
-        fr.readAsDataURL(blob);
-        console.log('blob:', blob);
         // const types = blob.type.split('/');
         // let type = '';
         // if (types.length > 0) {
