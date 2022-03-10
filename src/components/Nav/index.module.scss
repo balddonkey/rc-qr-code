@@ -1,0 +1,23 @@
+
+
+.nav {
+  display: flex;
+  height: 64px;
+  width: 100%;
+  background-color: #02C5F0;
+  box-sizing: border-box;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  .brand {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+  }
+
+  .name {
+    font-size: 16px;
+    color: white;
+  }
+}
