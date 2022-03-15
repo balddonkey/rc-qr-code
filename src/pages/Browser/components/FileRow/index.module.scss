@@ -1,0 +1,10 @@
+
+.container {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  background-color: white;
+  box-shadow: 0 0 3px #0002;
+}

@@ -8,7 +8,9 @@
   box-sizing: border-box;
   padding: 0 20px;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
+  box-shadow: 0 3px 3px #0002;
+  z-index: 2000;
 
   .brand {
     font-size: 18px;
@@ -16,8 +18,29 @@
     font-weight: bold;
   }
 
-  .name {
-    font-size: 16px;
-    color: white;
+  .right {
+    margin: auto 0 auto auto;
+
+    .dropdown-title {
+      color: white;
+
+      .name {
+        font-size: 16px;
+      }
+    }
+
+    .dropdown-title:focus,
+    .dropdown-title:focus-visible {
+      // box-shadow: none;
+    }
+
+    .dropdown {
+      right: 0;
+      left: auto;
+    }
+
+    .dropdown:after {
+      display: none;
+    }
   }
 }

@@ -1,5 +1,9 @@
 *:focus {outline: none} 
 
+:focus-visible {
+  outline: none;
+}
+
 button, button:focus, button:hover, button:focus-visible {
   border: none;
 }
