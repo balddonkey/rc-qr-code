@@ -20,7 +20,6 @@ import styles from './index.module.scss'
 const RCNav = (props) => {
   const { className, title, data, userConfig } = props;
   const { name, actions = [] } = userConfig || {};
-  console.log('acts:', actions);
 
   const onTriggerAction = useCallback((cfg, index) => {
     const { action } = cfg;

@@ -1,10 +1,11 @@
 
+@import '../../presets/_defines';
 
 .nav {
   display: flex;
-  height: 64px;
+  height: $NavHeight;
   width: 100%;
-  background-color: #02C5F0;
+  background-color: $PrimaryColor;
   box-sizing: border-box;
   padding: 0 20px;
   align-items: center;

@@ -1,0 +1,43 @@
+@import '../../presets/_defines';
+
+.modal {
+  display: flex !important;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 16px;
+    color: #121212;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dialog {
+    max-width: 80%;
+    height: auto;
+    margin: auto !important;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .name-input {
+    margin-top: 10px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #12121233;
+  }
+
+  .name-input:focus {
+    border-bottom-color: #121212;
+  }
+
+  .create-button {
+    background-color: $PrimaryColor;
+    color: white;
+    height: 36px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+}

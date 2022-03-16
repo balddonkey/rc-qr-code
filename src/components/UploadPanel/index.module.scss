@@ -1,0 +1,86 @@
+@import '../../presets/_defines';
+
+$ContainerWidth: 100%;
+
+
+.modal {
+  display: flex !important;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 16px;
+    color: #121212;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dialog {
+    max-width: 80%;
+    height: auto;
+    margin: auto !important;
+  }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .upload-container {
+    cursor: pointer;
+    // min-width: 200px;
+    width: $ContainerWidth;
+    // max-width: 600px;
+
+
+    .drop-box {
+      display: flex;
+      // margin-top: 20px;
+
+      .drop-text {
+        flex-grow: 1;
+        color: darkgray;
+        font-size: 16px;
+        text-align: center;
+        padding: 20px;
+        margin: 0;
+        background-color: #EEE;
+      }
+    }
+
+    .preview {
+      width: 100%;
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: $ContainerWidth;
+    margin-top: 20px;
+    
+    .choose-btn {
+      background-color: $PrimaryColor;
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      padding: 8px;
+    }
+    
+    .upload-btn {
+      flex-grow: 0;
+      background-color: $PrimaryColor;
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      white-space: nowrap;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 16px;
+      margin-left: 16px;
+    }
+  }
+
+}

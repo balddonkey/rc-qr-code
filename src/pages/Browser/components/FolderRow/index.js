@@ -12,13 +12,13 @@ import styles from './index.module.scss'
  * @returns {React.ElementType}
  */
 const FolderRow = (props) => {
-  const { choosed = false, type = 'folder' } = props;
+  const { choosed = false, type = 'folder', ...otherProps } = props;
   return (
-    <div className={styles['container']}>
+    <div className={styles['container']} {...otherProps}>
       <Image className={styles['choose']} src={choosed ? require('../../../../assets/choosed.png') : require('../../../../assets/choose.png')}/>
       <Image className={styles['row-type']} src={ type === 'file' ? require('../../../../assets/file.png') : require('../../../../assets/folder.png')} />
       <span className={styles['title']}>充电柜</span>
-      <span className={styles['detail']}>文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述</span>
+      <span className={styles['detail']}>文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述</span>
       <span className={styles['upload-time']}>上传时间：2022-03-10</span>
       <Image className={styles['right-arrow']} src={require('../../../../assets/arrow-right.png')}/>
     </div>

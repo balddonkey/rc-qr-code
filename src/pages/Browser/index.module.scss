@@ -38,6 +38,7 @@ $ToolBarHeight: 55px;
       border-radius: 5px;
       align-items: center;
       padding: 0 10px;
+      background-color: white;
 
       .image {
         width: 24px;
@@ -49,7 +50,16 @@ $ToolBarHeight: 55px;
         font-size: 14px;
         // font-weight: 500;
         color: #09AAFF;
+        user-select: none;
       }
+    }
+
+    .toolbar-btn:active {
+      background-color: #EEE;
+    }
+
+    .toolbar-btn:disabled {
+      opacity: 0.5;
     }
   }
   
