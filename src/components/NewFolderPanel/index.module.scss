@@ -12,7 +12,8 @@
   }
 
   .dialog {
-    max-width: 80%;
+    width: 100%;
+    max-width: 330px;
     height: auto;
     margin: auto !important;
   }
@@ -31,6 +32,16 @@
 
   .name-input:focus {
     border-bottom-color: #121212;
+  }
+
+  .detail-input {
+    @extend .name-input;
+    border: 1px solid #12121233;
+    height: 120px;
+  }
+
+  .detail-input:focus {
+    border: 1px solid #121212;
   }
 
   .create-button {

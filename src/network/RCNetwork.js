@@ -1,3 +1,4 @@
+import { UserManager } from "../models/user";
 import HTTP, { HTTP1 } from "./HTTP";
 import methods from "./methods";
 import RCStateCode, { RCDomain, RCError } from "./RCStateCode";
@@ -65,6 +66,36 @@ class RCRequester {
         data: {
           userName: phone,
           passWord: password,
+        }
+      })
+      .then(this._RequestPreprocess)
+      .catch(this._NetworkErrorHandle);
+    },
+    logout: () => {
+      UserManager.saveUser(null);
+    }
+  }
+
+  folder = {
+    getAll: (data) => {
+      const { userId } = data;
+      return HTTP1.get({
+        method: methods.getAllFolder,
+        data: {
+          page: 0,
+          pagesize: 999,
+          userId,
+        }
+      })
+      .then(this._RequestPreprocess)
+      .catch(this._NetworkErrorHandle);
+    },
+    new: (data) => {
+      const { name, content, userId, parentId = 0, level } = data;
+      return HTTP1.upload({
+        method: methods.addFolder,
+        data: {
+          name, content, userId, parentId, lever: level
         }
       })
       .then(this._RequestPreprocess)

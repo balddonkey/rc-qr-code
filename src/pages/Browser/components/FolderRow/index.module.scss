@@ -12,12 +12,22 @@
   box-sizing: border-box;
   align-items: center;
 
-  .choose {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
+  .choose-btn {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    
+    .choose {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin: auto 8px;
+    }
 
+  }
   .row-type {
     width: 24px;
     height: 24px;

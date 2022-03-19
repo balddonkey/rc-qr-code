@@ -1,7 +1,7 @@
 
 
 import React from 'react'
-import { Image } from 'react-bootstrap'
+import { Image, Button } from 'react-bootstrap'
 import styles from './index.module.scss'
 
 
@@ -12,10 +12,12 @@ import styles from './index.module.scss'
  * @returns {React.ElementType}
  */
 const FolderRow = (props) => {
-  const { choosed = false, type = 'folder', ...otherProps } = props;
+  const { choosed = false, type = 'folder', onChoose, ...otherProps } = props;
   return (
     <div className={styles['container']} {...otherProps}>
-      <Image className={styles['choose']} src={choosed ? require('../../../../assets/choosed.png') : require('../../../../assets/choose.png')}/>
+      <div className={styles['choose-btn']} onClick={onChoose}>
+        <Image className={styles['choose']} src={choosed ? require('../../../../assets/choosed.png') : require('../../../../assets/choose.png')}/>
+      </div>
       <Image className={styles['row-type']} src={ type === 'file' ? require('../../../../assets/file.png') : require('../../../../assets/folder.png')} />
       <span className={styles['title']}>充电柜</span>
       <span className={styles['detail']}>文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述文件详细描述</span>

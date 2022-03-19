@@ -44,7 +44,7 @@ class HTTPBase {
     const { method, data, baseUrl } = options;
     return new Promise((resolve, reject) => {
       axios.get(`${baseUrl || this.baseUrl}${method}`, {
-        data,
+        params: data,
         // headers: header,
       })
       .then(res => {
@@ -81,9 +81,15 @@ class HTTPBase {
    * @returns {Promise} request promise
    */
   upload(options) {
-    const { baseUrl = this.baseUrl, url, file } = options;
+    const { method, data = {}, baseUrl = this.baseUrl } = options;
+    let url = `${baseUrl}${method}`;
     let formdata = new FormData();
-    formdata.append('file', file);
+    for (const k in data) {
+      if (Object.hasOwnProperty.call(data, k)) {
+        const v = data[k];
+        formdata.append(k, v);
+      }
+    }
     return axios.post(url, formdata, {
       baseURL: baseUrl,
     })

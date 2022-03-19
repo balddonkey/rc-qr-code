@@ -30,7 +30,10 @@ const NewFolderPanel = (props) => {
           <input className={styles['name-input']} placeholder='请输入名称' value={name} onChange={onInputChange}>
               
           </input>
-          <button className={styles['create-button']}>创建</button>
+          <textarea className={styles['detail-input']} placeholder='请输入备注' value={name} onChange={onInputChange}>
+              
+          </textarea>
+          <button className={styles['create-button']} onClick={onClickNewFolder}>创建</button>
         </div>
       </Modal.Body>
     </Modal>

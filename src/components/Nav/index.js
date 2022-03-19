@@ -13,7 +13,7 @@ import styles from './index.module.scss'
  * 导航栏
  * @param {Object} props properties 配置
  * @param {String} props.title 标题
- * @property {Object} data 携带的数据体，在action点击时，会回调回去
+ * @param {Object} props.data 携带的数据体，在action点击时，会回调回去
  * @param {NavUserConfig} props.userConfig 用户配置
  * @returns {React.ElementType} 
  */

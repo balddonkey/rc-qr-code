@@ -15,7 +15,9 @@ $ContainerWidth: 100%;
   }
 
   .dialog {
-    max-width: 80%;
+    width: 80%;
+    max-width: 330px;
+    height: 60%;
     height: auto;
     margin: auto !important;
   }
@@ -23,6 +25,8 @@ $ContainerWidth: 100%;
 .container {
   display: flex;
   flex-direction: column;
+  // width: 100%;
+  // max-width: 330px;
 
   .upload-container {
     cursor: pointer;
@@ -43,6 +47,9 @@ $ContainerWidth: 100%;
         padding: 20px;
         margin: 0;
         background-color: #EEE;
+        width: 100%;
+        box-sizing: border-box;
+        word-break:break-all;
       }
     }
 
