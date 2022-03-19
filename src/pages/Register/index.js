@@ -2,6 +2,7 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { Button, FormText, Form, Navbar, Container, NavDropdown } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import toastr from 'toastr'
 import Nav from '../../components/Nav'
 import RCNetwork from '../../network/RCNetwork'
 import styles from './index.module.scss'
