@@ -1,7 +1,11 @@
+@import 'toastr';
+
 *:focus {outline: none} 
 
-:focus-visible {
+*:focus,
+*:focus-visible {
   outline: none;
+  box-shadow: none;
 }
 
 button, button:focus, button:hover, button:focus-visible {

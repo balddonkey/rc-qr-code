@@ -29,10 +29,12 @@
   .login-panel {
     display: flex;
     flex-direction: column;
-    width: 360px;
+    width: 80%;
+    max-width: 340px;
+    min-width: 240px;
     background-color: white;
     box-shadow: 0 0 5px #0003;
-    margin: 200px auto 0;
+    margin: 120px auto 0;
     padding: 20px;
     border-radius: 10px;
 
@@ -48,7 +50,7 @@
       padding: 10px 0;
       color: #333;
       font-size: 16px;
-      border-bottom: 1px solid #666;
+      border-bottom: 1px solid #12121233;
       margin-top: 20px;
       border-radius: 0;
     }
@@ -56,7 +58,18 @@
     .input:focus,
     .input:focus-visible {
       border: none;
-      border-bottom: 1px solid #666;
+      border-bottom: 1px solid #121212;
+      box-shadow: none;
+    }
+
+    .password-diff {
+      width: 100%;
+      text-align: right;
+      font-size: 12px;
+      height: 20px;
+      line-height: 20px;
+      color: red;
+      margin-top: 5px;
     }
 
     .login-btn {
@@ -67,6 +80,10 @@
       text-align: center;
       margin: 40px 0 10px;
       border: none;
+    }
+
+    .login-btn:disabled {
+      opacity: 0.5;
     }
   }
 }

@@ -7,10 +7,12 @@
   .login-panel {
     display: flex;
     flex-direction: column;
-    width: 360px;
+    width: 80%;
+    max-width: 340px;
+    min-width: 240px;
     background-color: white;
     box-shadow: 0 0 5px #0003;
-    margin: 200px auto 0;
+    margin: 120px auto 0;
     padding: 20px;
     border-radius: 10px;
 
@@ -26,7 +28,7 @@
       padding: 10px 0;
       color: #333;
       font-size: 16px;
-      border-bottom: 1px solid #666;
+      border-bottom: 1px solid #12121233;
       margin-top: 20px;
       border-radius: 0;
     }
@@ -34,7 +36,7 @@
     .input:focus,
     .input:focus-visible {
       border: none;
-      border-bottom: 1px solid #666;
+      border-bottom: 1px solid #121212;
     }
 
     .login-btn {
@@ -45,6 +47,23 @@
       text-align: center;
       margin: 40px 0 10px;
       border: none;
+    }
+
+    .register-btn {
+      margin-left: auto;
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #555;
+      background-color: transparent;
+      border: none;
+    }
+
+    .register-btn:focus,
+    .register-btn:focus-visible,
+    .register-btn:active,
+    .register-btn:hover {
+      border: none;
+      box-shadow: none;
     }
   }
 }

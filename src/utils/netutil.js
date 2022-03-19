@@ -12,7 +12,7 @@ const Netutil = {
     return axios.post(url, formdata, {
       baseURL: baseUrl,
       // transformRequest: [
-      //   (d) => {
+      //   (d) => {``
       //     return d;
       //   }
       // ]

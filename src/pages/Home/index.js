@@ -1,6 +1,6 @@
 
 import Netutil from '../../utils/netutil';
-import React, { useState, useCallback, useRef, useLayoutEffect } from 'react'
+import React, { useState, useCallback, useRef, useLayoutEffect, useEffect } from 'react'
 import { Image, Button } from 'react-bootstrap';
 import styles from './index.module.scss'
 import Dropzone from 'react-dropzone'
@@ -8,6 +8,7 @@ import {useDropzone} from 'react-dropzone'
 // import './home.module.scss';
 import QRCode from 'qrcode';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserManager } from '../../models/user';
 
 const Home = (props) => {
   const [file, setFile] = useState(null);
@@ -50,7 +51,7 @@ const Home = (props) => {
     console.log('on choose file:', inputRef.current);
     inputRef.current.click();
   }, [inputRef]);
-
+  
   const onUpload = useCallback((e) => {
     console.log('on upload:', file)
     if (file && file.origin) {
@@ -69,9 +70,20 @@ const Home = (props) => {
     }
   }, [file, navigate])
 
+  useEffect(() => {
+    const user = UserManager.getUser();
+    console.log('load user');
+    if (user) {
+      navigate('/browser');
+    } else {
+      navigate('/login')
+    }
+  }, [])
+
   return (
     <div className={styles['container']}>
-      <p className={styles['title']}>洛阳市锐创电气设备有限公司</p>
+      Loading
+      {/* <p className={styles['title']}>洛阳市锐创电气设备有限公司</p>
       <>
         <div className={styles['upload-container']}>
           <input {...getInputProps()} ref={inputRef} multiple={false}/>
@@ -89,7 +101,7 @@ const Home = (props) => {
       </div>
       <div className={styles['qr-container']}>
         <canvas className={styles['qrcode']} id='qrcode'/>
-      </div>
+      </div> */}
     </div>
   )
 }

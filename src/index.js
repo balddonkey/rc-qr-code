@@ -7,6 +7,7 @@ import './presets/custom.scss';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './utils/appConfig';
 
 ReactDOM.render(
   // <React.StrictMode>
