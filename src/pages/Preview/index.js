@@ -12,7 +12,19 @@ import toastr from 'toastr';
 
 const Preview = (props) => {
 
-  const { url: file } = useParams();
+  const { id } = useParams();
+  const [folder, setFolder] = useState(null);
+  const [file, setFile] = useState(null);
+
+  useEffect(() => {
+    RCNetwork.folder.getInfo({id})
+    .then(res => {
+      console.log('get folder info:', res);
+    })
+    .catch(e => {
+      console.log('get error:', e);
+    })
+  }, [id]);
 
   console.log('on preview:', file);
   const download = useCallback(() => {

@@ -90,6 +90,17 @@ class RCRequester {
       .then(this._RequestPreprocess)
       .catch(this._NetworkErrorHandle);
     },
+    getInfo: (data) => {
+      const { id } = data;
+      return HTTP1.get({
+        method: methods.getFolderInfo,
+        data: {
+          id,
+        }
+      })
+      .then(this._RequestPreprocess)
+      .catch(this._NetworkErrorHandle);
+    },
     new: (data) => {
       const { name, content, userId, parentId = 0, level } = data;
       return HTTP1.upload({

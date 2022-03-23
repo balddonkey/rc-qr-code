@@ -95,7 +95,7 @@ const Catalogue = (props) => {
     if (type === 0) {
       navigate(`/browser/catalogue/${id}/${v.lever + 1}`)
     } else {
-      navigate(`/browser/preview/${encodeURIComponent(picUrl)}`)
+      navigate(`/browser/preview/${id}`)
     }
   }, [])
   
