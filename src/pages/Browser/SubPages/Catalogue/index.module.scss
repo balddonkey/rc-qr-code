@@ -1,0 +1,73 @@
+
+$NavHeight: 64px;
+$ToolBarHeight: 55px;
+
+.container {
+  width: 100%;
+  background-color: #F2F2F2;
+  box-sizing: border-box;
+  display: flex;
+  position: sticky;
+  top: $NavHeight;
+  width: 100%;
+  overflow: auto;
+  // flex-grow: 0;
+  box-sizing: border-box;
+  // justify-content: center;
+  // align-items: center;
+  overflow: hidden;
+  flex-direction: column;
+
+  .folder-handle-container {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    height: 100%;
+    height: $ToolBarHeight;
+    background-color: white;
+    box-shadow: 0 3px 3px #0002;
+  }
+  .toolbar-btn {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: row;
+    height: 36px;
+    margin: auto 8px;
+    border: 1.5px solid #02C5F044;
+    border-radius: 5px;
+    align-items: center;
+    padding: 0 10px;
+    background-color: white;
+
+    .image {
+      width: 24px;
+      height: 24px;
+    }
+
+    .text {
+      margin-left: 8px;
+      font-size: 14px;
+      // font-weight: 500;
+      color: #09AAFF;
+      user-select: none;
+    }
+  }
+
+  .toolbar-btn:active {
+    background-color: #EEE;
+  }
+
+  .toolbar-btn:disabled {
+    opacity: 0.5;
+  }
+
+  .content {
+    display: flex;
+    margin-top: 5px;
+    flex-direction: column;
+
+    .row {
+
+    }
+  }
+}

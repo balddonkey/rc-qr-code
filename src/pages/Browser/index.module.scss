@@ -4,7 +4,7 @@ $ToolBarHeight: 55px;
 
 .container {
   display: flex;
-  background-color: lightgray;
+  // background-color: lightgray;
   flex-direction: column;
   position: relative;
 
@@ -27,7 +27,14 @@ $ToolBarHeight: 55px;
     box-sizing: border-box;
     // justify-content: center;
     align-items: center;
+    overflow: hidden;
 
+    .folder-handle-container {
+      display: flex;
+      flex-direction: row;
+      overflow: auto;
+      height: 100%;
+    }
     .toolbar-btn {
       display: flex;
       flex-shrink: 0;

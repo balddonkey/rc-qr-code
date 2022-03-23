@@ -35,6 +35,17 @@ class HTTPBase {
     
   }
 
+  download(options) {
+    const { data, url } = options;
+    return axios({
+      method: 'POST',
+      url: url,
+      data: data,
+      // headers: header,
+      responseType: 'blob',
+    })
+  }
+
   /**
    * GET请求
    * @param {HTTPRequestOptionType} options 参数选项
@@ -42,6 +53,7 @@ class HTTPBase {
    */
   get(options) {
     const { method, data, baseUrl } = options;
+    console.log('on get request:', options);
     return new Promise((resolve, reject) => {
       axios.get(`${baseUrl || this.baseUrl}${method}`, {
         params: data,
@@ -81,7 +93,7 @@ class HTTPBase {
    * @returns {Promise} request promise
    */
   upload(options) {
-    const { method, data = {}, baseUrl = this.baseUrl } = options;
+    const { method, data = {}, files, baseUrl = this.baseUrl } = options;
     let url = `${baseUrl}${method}`;
     let formdata = new FormData();
     for (const k in data) {
@@ -90,13 +102,24 @@ class HTTPBase {
         formdata.append(k, v);
       }
     }
+    for (const k in files) {
+      if (Object.hasOwnProperty.call(files, k)) {
+        const v = files[k];
+        if (v instanceof Array) {
+          v.forEach(vv => {
+            formdata.append(k, vv);
+          });
+        } else {
+          formdata.append(k, v);
+        }
+      }
+    }
     return axios.post(url, formdata, {
       baseURL: baseUrl,
     })
     .then(res => {
       console.log('upload succ:', res);
-      const { data } = res;
-      return Promise.resolve(data);
+      return Promise.resolve(res);
     })
   }
 }

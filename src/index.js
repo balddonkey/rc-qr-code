@@ -8,11 +8,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './utils/appConfig';
+import { Provider } from 'react-redux';
+import { store } from './redux'
 
 ReactDOM.render(
   // <React.StrictMode>
     <HashRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </HashRouter>
   // </React.StrictMode>,
   , document.getElementById('root')

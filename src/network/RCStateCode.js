@@ -8,6 +8,8 @@ const RCStateCode = {
     paramError: 10,
     emptyData: 13,
     error: 99,
+
+    networkError: 10001,
   },
 }
 

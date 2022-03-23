@@ -8,24 +8,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Nav from '../../components/Nav'
 import { UserManager } from '../../models/user';
 import RCNetwork from '../../network/RCNetwork';
+import toastr from 'toastr';
 
 const Preview = (props) => {
 
-  const navigate = useNavigate();
   const { url: file } = useParams();
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const user = UserManager.getUser();
-    if (!user) {
-      navigate('/', {replace: true});
-    } else {
-      setUser(user);
-    }
-  }, [])
 
   console.log('on preview:', file);
   const download = useCallback(() => {
+    
+    // window.open(new URL(file), '_blank')
     fetch(file, { method: 'GET'})
     .then(res => {
       res.blob().then(blob => {
@@ -35,9 +27,15 @@ const Preview = (props) => {
         //   type = types[types.length - 1];
         // }
         console.log('file type:', mime.extension(blob.type));
+        const exts = file.split('/');
+        if (exts.length <= 0) {
+          toastr.error(`文件错误，无法下载，请联系管理员\n${file}`);
+          return;
+        }
+        const fileName = exts[exts.length - 1];
         let blobUrl = window.URL.createObjectURL(blob);
         let aElement = document.getElementById('downloadDiv');
-        let fileName = `${Date.now()}.${mime.extension(blob.type) || ''}`
+        // let fileName = `${Date.now()}.${mime.extension(blob.type) || ''}`
         console.log('fn:', fileName);
         aElement.href = blobUrl;
         aElement.download = fileName;
@@ -47,17 +45,8 @@ const Preview = (props) => {
     })
   }, [file])
 
-  const onLogout = useCallback((user) => {
-    console.log('on logout:', user);
-    RCNetwork.user.logout()
-    navigate('/', {replace: true});
-  }, [])
-
   return (
     <div className={styles['container']}>
-      <Nav className={styles['nav']} title='文件管理系统' userConfig={{ name: user && user.trueName, data: user, actions: [
-        { title: '退出登录', action: (p) => onLogout(p) }
-      ]}}/>
       <div className={styles['file-container']}>
         <Image className={styles['preview']} src={file} placeholder={require('../../assets/file.png')} onErrorCapture={e => e.target.src = require('../../assets/file.png')}/>
         <div className={styles['file-name']}>

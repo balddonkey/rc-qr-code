@@ -1,3 +1,4 @@
+import axios from "axios";
 import { UserManager } from "../models/user";
 import HTTP, { HTTP1 } from "./HTTP";
 import methods from "./methods";
@@ -7,7 +8,6 @@ class RCRequester {
   
   _NetworkErrorHandle = (e) => {
     console.log('request e:', e);
-    return;
     if (e instanceof RCError) {
       return Promise.reject(e);
     } else {
@@ -82,7 +82,7 @@ class RCRequester {
       return HTTP1.get({
         method: methods.getAllFolder,
         data: {
-          page: 0,
+          page: 1,
           pagesize: 999,
           userId,
         }
@@ -100,7 +100,45 @@ class RCRequester {
       })
       .then(this._RequestPreprocess)
       .catch(this._NetworkErrorHandle);
+    },
+    getByParentId: (data) => {
+      const { parentId, userId } = data;
+      return HTTP1.get({
+        method: methods.getFolderByParentId,
+        data: {
+          parentId, userId,
+        }
+      })
+      .then(this._RequestPreprocess)
+      .catch(this._NetworkErrorHandle);
+    },
+    uploadFiles: (data) => {
+      const { parentId, userId, files } = data;
+      return HTTP1.upload({
+        method: methods.uploadFiles,
+        data: {
+          id: parentId, userId
+        },
+        files: { files: files }
+      })
+      .then(this._RequestPreprocess)
+      .catch(this._NetworkErrorHandle);
+    },
+    downloadFile: (data) => {
+      const { path, userId } = data;
+      return HTTP1.get({
+        method: methods.downloadFile,
+        data: {
+          path, userId, timestamp: Date.now().toString(),
+        }
+      })
+      .then(this._RequestPreprocess)
+      .catch(this._NetworkErrorHandle);
     }
+  }
+
+  download = (data, url) => {
+    return HTTP1.download({data, url})
   }
   
 }
