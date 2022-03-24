@@ -44,7 +44,7 @@ const Router = () => {
       children: [
         { index: true, element: <Catalogue /> },
         { index: true, path: '/browser/catalogue/:id/:level', element: <Catalogue /> },
-        { index: true, path: '/browser/preview/:id', element: <Preview /> },
+        { index: true, path: '/browser/preview/:id/:userId', element: <Preview /> },
         // { path: "*", element: <Test /> },
       ],
     },

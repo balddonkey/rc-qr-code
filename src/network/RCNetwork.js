@@ -136,11 +136,12 @@ class RCRequester {
       .catch(this._NetworkErrorHandle);
     },
     downloadFile: (data) => {
-      const { path, userId } = data;
+      const { userId, ...other } = data;
       return HTTP1.get({
         method: methods.downloadFile,
         data: {
-          path, userId, timestamp: Date.now().toString(),
+          userId, timestamp: Date.now().toString(),
+          ...other
         }
       })
       .then(this._RequestPreprocess)

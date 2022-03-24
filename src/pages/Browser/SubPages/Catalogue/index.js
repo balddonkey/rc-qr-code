@@ -8,19 +8,12 @@ import NewFolderPanel from '../../../../components/NewFolderPanel';
 import UploadPanel from '../../../../components/UploadPanel';
 import { UserManager } from '../../../../models/user';
 import RCNetwork from '../../../../network/RCNetwork';
-import { CatalogueActions } from '../../../../redux/action';
 import FolderRow from '../../components/FolderRow';
 import styles from './index.module.scss'
 import mime from '../../../../utils/mime-types'
 
 const Catalogue = (props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const catalogue = useSelector((state) => {
-    console.log('sss:', state.catalogue);
-    return state.catalogue;
-  })
-  console.log('ffff:', catalogue);
   const { className } = props;
   const [showUploadPanel, setShowUploadPanel] = useState(false);
   const [showNewFolderPanel, setShowNewFolderPanel] = useState(false);
@@ -83,7 +76,6 @@ const Catalogue = (props) => {
 
   const _onChooseRow = useCallback((v, i, e) => {
     console.log('on choose:', v);
-    dispatch(CatalogueActions.change(v));
     const { id } = v;
     setSelectedId(id);
   }, [])
@@ -91,13 +83,12 @@ const Catalogue = (props) => {
   const _onClickRow = useCallback((v, i, e) => {
     console.log('on click row:', v);
     const { id, type, picUrl } = v;
-    dispatch(CatalogueActions.change(v));
     if (type === 0) {
       navigate(`/browser/catalogue/${id}/${v.lever + 1}`)
     } else {
-      navigate(`/browser/preview/${id}`)
+      navigate(`/browser/preview/${id}/${user.id}`)
     }
-  }, [])
+  }, [user])
   
   const onUploadFiles = useCallback((files) => {
     const { id = user.folderParentId } = params;
@@ -135,10 +126,8 @@ const Catalogue = (props) => {
   const onDownloadFile = useCallback(() => {
     const v = data.find((v, i, o) => v.id === selectedId)
     console.log('will download:', v);
-    const path = catalogue.groups.map(v => v.name).join('/');
-    console.log('download path:', path);
     RCNetwork.folder.downloadFile({
-      path: path,
+      id: v.id,
       userId: user.id,
     })
     .then(res => {
