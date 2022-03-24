@@ -6,7 +6,7 @@ const methods = {
   
   getAllFolder: '/folder/getAllFolder',
   addFolder: '/folder/addFolder',
-  getFolderInfo: '/folder/getFolderInfo',
+  getFolderInfo: '/folder/getFolderInfoU',
   uploadFiles: '/folder/uploadFiles',
   getFolderByParentId: '/folder/getFolderByParentId',
 

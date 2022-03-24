@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback, useRef, useEffect } from 'react'
+import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import { Image, Button } from 'react-bootstrap';
 import styles from './index.module.scss'
 import util from '../../utils/util'
@@ -13,11 +13,10 @@ import toastr from 'toastr';
 const Preview = (props) => {
 
   const { id, userId } = useParams();
-  const [folder, setFolder] = useState(null);
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    RCNetwork.folder.getInfo({id})
+    RCNetwork.folder.getInfo({id, userId})
     .then(res => {
       console.log('get folder info:', res);
       setFile(res.data);
@@ -26,7 +25,11 @@ const Preview = (props) => {
       console.log('get error:', e);
       toastr.error(`获取文件信息失败，${e.msg}`)
     })
-  }, [id]);
+  }, [id, userId]);
+
+  const previewUrl = useMemo(() => {
+    return file && file.picUrl ? new URL(file.picUrl) : null;
+  }, [file])
 
   console.log('on preview:', file);
   const download = useCallback(() => {
@@ -76,9 +79,11 @@ const Preview = (props) => {
   return (
     <div className={styles['container']}>
       <div className={styles['file-container']}>
-        <Image className={styles['preview']} src={file && file.picUrl} placeholder={require('../../assets/file.png')} onErrorCapture={e => e.target.src = require('../../assets/file.png')}/>
+        <Image className={styles['preview']} src={previewUrl} 
+        placeholder={require('../../assets/file.png')} onErrorCapture={e => e.target.src = require('../../assets/file.png')}
+        />
         <div className={styles['file-name']}>
-          <a href={file && file.picUrl}>{file && file.picUrl}</a>
+          <a href={previewUrl}>{file && file.picUrl}</a>
         </div>
         <Button className={styles['download-btn']} onClick={download}>下载</Button>
       </div> 

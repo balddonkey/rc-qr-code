@@ -1,7 +1,7 @@
 import HTTPBase from "./HTTPBase";
 
-const baseUrl1 = 'http://192.168.0.30:8080/upload.api';
-// const baseUrl1 = 'http://upload.rcdqiot.com:8080/upload.api';
+// const baseUrl1 = 'http://192.168.0.30:8080/upload.api';
+const baseUrl1 = 'http://upload.rcdqiot.com:8080/upload.api';
 
 const baseUrl2 = 'http://192.168.0.222/img';
 

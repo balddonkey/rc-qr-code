@@ -91,12 +91,10 @@ class RCRequester {
       .catch(this._NetworkErrorHandle);
     },
     getInfo: (data) => {
-      const { id } = data;
+      const { id, userId } = data;
       return HTTP1.get({
         method: methods.getFolderInfo,
-        data: {
-          id,
-        }
+        data: data
       })
       .then(this._RequestPreprocess)
       .catch(this._NetworkErrorHandle);
