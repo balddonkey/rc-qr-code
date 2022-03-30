@@ -86,7 +86,7 @@ const Catalogue = (props) => {
     if (type === 0) {
       navigate(`/browser/catalogue/${id}/${v.lever + 1}`)
     } else {
-      navigate(`/browser/preview/${id}/${user.id}`)
+      navigate(`/preview/${id}/${user.id}`)
     }
   }, [user])
   
@@ -197,12 +197,12 @@ const Catalogue = (props) => {
             下载文件
           </span>
         </Button>
-        <Button className={styles['toolbar-btn']} disabled={selectedId === null || selectedId === undefined} onClick={onGenQRCode}>
+        {/* <Button className={styles['toolbar-btn']} disabled={selectedId === null || selectedId === undefined} onClick={onGenQRCode}>
           <Image className={styles['image']} src={require('../../../../assets/file-download.png')} />
           <span className={styles['text']}>
             生成二维码
           </span>
-        </Button>
+        </Button> */}
       </div>
       <div className={styles['content']}>
       { data && data.map((v, i) => {

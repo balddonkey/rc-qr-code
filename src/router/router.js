@@ -39,6 +39,10 @@ const Router = () => {
       element: <Register />,
     },
     {
+      path: '/preview/:id/:userId', 
+      element: <Preview />,
+    },
+    {
       path: "/browser",
       element: <Browser />,
       children: [

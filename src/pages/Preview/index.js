@@ -4,16 +4,20 @@ import { Image, Button } from 'react-bootstrap';
 import styles from './index.module.scss'
 import util from '../../utils/util'
 import mime from '../../utils/mime-types'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation, use } from 'react-router-dom';
 import Nav from '../../components/Nav'
 import { UserManager } from '../../models/user';
 import RCNetwork from '../../network/RCNetwork';
 import toastr from 'toastr';
+import QRCodePanel from '../../components/QRCodePanel';
+import { baseUrl } from '../../utils/netutil';
 
 const Preview = (props) => {
 
   const { id, userId } = useParams();
+  console.log('ppp zzz:', useParams(), useLocation());
   const [file, setFile] = useState(null);
+  const [showQRPanel, setShowQRPanel] = useState(false);
 
   useEffect(() => {
     RCNetwork.folder.getInfo({id, userId})
@@ -76,8 +80,14 @@ const Preview = (props) => {
     // })
   }, [file])
 
+  const onShowQRPanel = useCallback(() => {
+    setShowQRPanel(true);
+  }, [])
+
   return (
     <div className={styles['container']}>
+      
+      <Nav className={styles['nav']} title='文件管理系统'/>
       <div className={styles['file-container']}>
         <Image className={styles['preview']} src={previewUrl} 
         placeholder={require('../../assets/file.png')} onErrorCapture={e => e.target.src = require('../../assets/file.png')}
@@ -85,9 +95,13 @@ const Preview = (props) => {
         <div className={styles['file-name']}>
           <a href={previewUrl}>{file && file.picUrl}</a>
         </div>
-        <Button className={styles['download-btn']} onClick={download}>下载</Button>
+        <div className={styles['btn-container']}>
+          <Button className={styles['download-btn']} onClick={download}>下载</Button>
+          <Button className={styles['download-btn']} onClick={onShowQRPanel}>生成二维码</Button>
+        </div>
       </div> 
       <a id='downloadDiv'></a>
+      { showQRPanel && <QRCodePanel onHide={() => setShowQRPanel(false)} url={window.location.href}/>}
     </div>
   )
 }
