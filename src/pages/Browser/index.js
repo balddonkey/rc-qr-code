@@ -1,7 +1,7 @@
 
 import React, { useCallback, useState, useMemo, useEffect, useLayoutEffect } from 'react'
 import { Button, Image, Modal } from 'react-bootstrap';
-import { Link, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Outlet, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import toastr from 'toastr';
 import Nav from '../../components/Nav'
 import NewFolderPanel from '../../components/NewFolderPanel';
@@ -16,6 +16,9 @@ import Catalogue from './SubPages/Catalogue';
 const Browser = (props) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const { userId } = useParams();
+
+  console.log('asdfasdf:', window.location);
 
   const onLogout = useCallback((user) => {
     console.log('on logout:', user);
@@ -27,7 +30,7 @@ const Browser = (props) => {
     const user = UserManager.getUser();
     console.log('zzzz:', user);
     if (!user) {
-      navigate('/', {replace: true});
+      // navigate('/', {replace: true});
     } else {
       setUser(user);
     }
@@ -35,7 +38,7 @@ const Browser = (props) => {
 
   return (
     <div className={styles['container']}>
-      <Nav className={styles['nav']} title='文件管理系统' userConfig={{ name: user && user.trueName, data: user, actions: [
+      <Nav className={styles['nav']} title='文件管理系统' userConfig={user && user.trueName && { name: user.trueName, actions: [
         { title: '退出登录', action: (p) => onLogout(p) }
       ]}}/>
       <Outlet />

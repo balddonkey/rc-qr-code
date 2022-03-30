@@ -11,21 +11,21 @@ import RCNetwork from '../../../../network/RCNetwork';
 import FolderRow from '../../components/FolderRow';
 import styles from './index.module.scss'
 import mime from '../../../../utils/mime-types'
+import QRCodePanel from '../../../../components/QRCodePanel';
 
 const Catalogue = (props) => {
   const navigate = useNavigate();
   const { className } = props;
   const [showUploadPanel, setShowUploadPanel] = useState(false);
   const [showNewFolderPanel, setShowNewFolderPanel] = useState(false);
+  const [showQRPanel, setShowQRPanel] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [data, setData] = useState([]);
-  const params = useParams();
-  const { level = 1 } = params;
-  console.log('ppp:', params);
+  const { level = 1, userId, id } = useParams();
   
-  const getHomeData = useCallback((user) => {
-    RCNetwork.folder.getAll({userId: user.id})
+  const getHomeData = useCallback(() => {
+    RCNetwork.folder.getAll({userId: userId})
     .then(res => {
       console.log('get all:', res);
       const data = res.data;
@@ -34,10 +34,9 @@ const Catalogue = (props) => {
     .catch(e => {
       toastr.error(e.msg);
     })
-  }, [])
+  }, [userId])
 
-  const loadById = useCallback((id, user) => {
-    const { id: userId } = user;
+  const loadById = useCallback(() => {
     RCNetwork.folder.getByParentId({parentId: id, userId})
     .then(res => {
       console.log('on get childs:', res);
@@ -47,32 +46,24 @@ const Catalogue = (props) => {
     .catch(e => {
       toastr.error(e.msg);
     })
-  }, [])
+  }, [userId, id])
 
-  const reload = useCallback((user) => {
-    const { id = user.folderParentId } = params;
-    console.log('zzzzzz:', id);  
+  const reload = useCallback(() => {
+    console.log('reload zzzzzz:', id);  
     if (id !== null && id !== undefined && id > 0) {
-      loadById(id, user);
+      loadById();
     } else {
-      getHomeData(user);
+      getHomeData();
     }
-  }, [params])
+  }, [id])
 
   useEffect(() => {
-    const user = UserManager.getUser();
-    console.log('zzzz:', user);
-    if (!user) {
-      navigate('/', {replace: true});
-    } else {
-      setUser(user);
-      reload(user);
-    }
-  }, [getHomeData, reload])
+    reload();
+  }, [reload, userId, id, level])
 
   useLayoutEffect(() => {
     setSelectedId(null);
-  }, [params])
+  }, [id, userId, level])
 
   const _onChooseRow = useCallback((v, i, e) => {
     console.log('on choose:', v);
@@ -84,55 +75,53 @@ const Catalogue = (props) => {
     console.log('on click row:', v);
     const { id, type, picUrl } = v;
     if (type === 0) {
-      navigate(`/browser/catalogue/${id}/${v.lever + 1}`)
+      navigate(`/browser/${userId}/catalogue/${id}/${v.lever + 1}`)
     } else {
-      navigate(`/preview/${id}/${user.id}`)
+      navigate(`/preview/${userId}/${id}`)
     }
-  }, [user])
+  }, [userId, id])
   
   const onUploadFiles = useCallback((files) => {
-    const { id = user.folderParentId } = params;
     RCNetwork.folder.uploadFiles({
       parentId: id,
-      userId: user.id,
+      userId: userId,
       files
     })
     .then(res => {
       console.log('on upload f:', res);
       setShowUploadPanel(false);
-      reload(user);
+      reload();
     })
     .catch(e => {
       console.log('on upload e:', e);
     })
-  }, [user, reload, params])
+  }, [reload, userId, id])
 
   const onNewFolder = useCallback((name, content) => {
     if (!name || !content || name.length === 0 | content.length === 0) {
       toastr.info('请输入文件夹名称以及描述')
       return;
     }
-    const { id = user.folderParentId, level = 1 } = params;
     RCNetwork.folder.new({
-      name, content: content, userId: user.id, level: level, parentId: id
+      name, content: content, userId: userId, level: level, parentId: id
     })
     .then(res => {
       console.log('on new succ:', res);
       setShowNewFolderPanel(false);
-      reload(user);
+      reload();
     })
     .catch(e => {
       console.log('on new e:', e);
       toastr.error(e.msg);
     })
-  }, [user, reload, params])
+  }, [userId, id, level, reload])
 
   const onDownloadFile = useCallback(() => {
     const v = data.find((v, i, o) => v.id === selectedId)
     console.log('will download:', v);
     RCNetwork.folder.downloadFile({
       id: v.id,
-      userId: user.id,
+      userId: userId,
     })
     .then(res => {
       console.log('get download data:', res);
@@ -157,23 +146,7 @@ const Catalogue = (props) => {
     .catch(e => {
       console.log('get download failed:', e);
     })
-  }, [selectedId, data, user])
-
-  const onGenQRCode = useCallback(() => {
-    const v = data.find((v, i, o) => v.id === selectedId)
-    console.log('will download:', v);
-    RCNetwork.folder.downloadFile({
-      id: v.id,
-      userId: user.id,
-    })
-    .then(res => {
-      console.log('get download data:', res);
-      const { zipNameUrl } = res;
-    })
-    .catch(e => {
-      console.log('get download failed:', e);
-    })
-  }, [selectedId, data, user])
+  }, [selectedId, data, userId])
 
   return (
     
@@ -197,12 +170,12 @@ const Catalogue = (props) => {
             下载文件
           </span>
         </Button>
-        {/* <Button className={styles['toolbar-btn']} disabled={selectedId === null || selectedId === undefined} onClick={onGenQRCode}>
-          <Image className={styles['image']} src={require('../../../../assets/file-download.png')} />
+        <Button className={styles['toolbar-btn']} disabled={selectedId === null || selectedId === undefined} onClick={() => setShowQRPanel(true)}>
+          <Image className={styles['image']} src={require('../../../../assets/qrcode_fill.png')} />
           <span className={styles['text']}>
             生成二维码
           </span>
-        </Button> */}
+        </Button>
       </div>
       <div className={styles['content']}>
       { data && data.map((v, i) => {
@@ -223,6 +196,7 @@ const Catalogue = (props) => {
       <a id='downloadDiv' hidden></a>
       { showUploadPanel && <UploadPanel show={true} onUpload={onUploadFiles} onHide={() => setShowUploadPanel(false)}/>}
       { showNewFolderPanel && <NewFolderPanel show={true} onNewFolder={onNewFolder} onHide={() => setShowNewFolderPanel(false)}/>}
+      { showQRPanel && <QRCodePanel onHide={() => setShowQRPanel(false)} url={`${window.location.origin}/#/browser/${userId}/catalogue/${selectedId}/${level + 1}`}/>}
     </div>
   )
 }

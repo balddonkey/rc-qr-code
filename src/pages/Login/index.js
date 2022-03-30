@@ -42,7 +42,7 @@ const Login = (props) => {
       const user = res.data;
       UserManager.saveUser(user);
       toastr.success('登陆成功')
-      navigate('/browser')
+      navigate(`/browser/${user.id}`)
     })
     .catch(e => {
       console.log('on login err:', e);

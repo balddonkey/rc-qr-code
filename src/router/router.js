@@ -39,16 +39,16 @@ const Router = () => {
       element: <Register />,
     },
     {
-      path: '/preview/:id/:userId', 
+      path: '/preview/:userId/:id', 
       element: <Preview />,
     },
     {
-      path: "/browser",
+      path: "/browser/:userId",
       element: <Browser />,
       children: [
         { index: true, element: <Catalogue /> },
-        { index: true, path: '/browser/catalogue/:id/:level', element: <Catalogue /> },
-        { index: true, path: '/browser/preview/:id/:userId', element: <Preview /> },
+        { path: '/browser/:userId/catalogue/:id/:level', element: <Catalogue /> },
+        { path: '/browser/:userId/preview/:id/:userId', element: <Preview /> },
         // { path: "*", element: <Test /> },
       ],
     },
