@@ -108,6 +108,10 @@ const Catalogue = (props) => {
   }, [user, reload, params])
 
   const onNewFolder = useCallback((name, content) => {
+    if (!name || !content || name.length === 0 | content.length === 0) {
+      toastr.info('请输入文件夹名称以及描述')
+      return;
+    }
     const { id = user.folderParentId, level = 1 } = params;
     RCNetwork.folder.new({
       name, content: content, userId: user.id, level: level, parentId: id
@@ -155,6 +159,22 @@ const Catalogue = (props) => {
     })
   }, [selectedId, data, user])
 
+  const onGenQRCode = useCallback(() => {
+    const v = data.find((v, i, o) => v.id === selectedId)
+    console.log('will download:', v);
+    RCNetwork.folder.downloadFile({
+      id: v.id,
+      userId: user.id,
+    })
+    .then(res => {
+      console.log('get download data:', res);
+      const { zipNameUrl } = res;
+    })
+    .catch(e => {
+      console.log('get download failed:', e);
+    })
+  }, [selectedId, data, user])
+
   return (
     
     <div className={`${styles['container']} ${className}`}>
@@ -175,6 +195,12 @@ const Catalogue = (props) => {
           <Image className={styles['image']} src={require('../../../../assets/file-download.png')} />
           <span className={styles['text']}>
             下载文件
+          </span>
+        </Button>
+        <Button className={styles['toolbar-btn']} disabled={selectedId === null || selectedId === undefined} onClick={onGenQRCode}>
+          <Image className={styles['image']} src={require('../../../../assets/file-download.png')} />
+          <span className={styles['text']}>
+            生成二维码
           </span>
         </Button>
       </div>

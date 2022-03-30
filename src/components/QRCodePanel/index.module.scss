@@ -1,0 +1,26 @@
+@import '../../presets/_defines';
+
+.modal {
+  display: flex !important;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 16px;
+    color: #121212;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dialog {
+    width: 100%;
+    max-width: 330px;
+    height: auto;
+    margin: auto !important;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+}
