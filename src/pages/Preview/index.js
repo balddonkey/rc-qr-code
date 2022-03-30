@@ -15,18 +15,18 @@ import { baseUrl } from '../../utils/netutil';
 const Preview = (props) => {
 
   const { id, userId } = useParams();
-  console.log('ppp zzz:', useParams(), useLocation());
+  // console.log('ppp zzz:', useParams(), useLocation());
   const [file, setFile] = useState(null);
   const [showQRPanel, setShowQRPanel] = useState(false);
 
   useEffect(() => {
     RCNetwork.folder.getInfo({id, userId})
     .then(res => {
-      console.log('get folder info:', res);
+      // console.log('get folder info:', res);
       setFile(res.data);
     })
     .catch(e => {
-      console.log('get error:', e);
+      // console.log('get error:', e);
       toastr.error(`获取文件信息失败，${e.msg}`)
     })
   }, [id, userId]);
@@ -35,22 +35,22 @@ const Preview = (props) => {
     return file && file.picUrl ? new URL(file.picUrl) : null;
   }, [file])
 
-  console.log('on preview:', file);
+  // console.log('on preview:', file);
   const download = useCallback(() => {
     
     // const v = data.find((v, i, o) => v.id === selectedId)
-    // console.log('will download:', v);
+    // // console.log('will download:', v);
     RCNetwork.folder.downloadFile({
       id: file.id,
       userId: userId,
     })
     .then(res => {
-      console.log('get download data:', res);
+      // console.log('get download data:', res);
       const { zipNameUrl } = res;
       window.open(new URL(zipNameUrl), '_blank')
     })
     .catch(e => {
-      console.log('get download failed:', e);
+      // console.log('get download failed:', e);
     })
     // window.open(new URL(file), '_blank')
     // fetch(file, { method: 'GET'})
@@ -61,7 +61,7 @@ const Preview = (props) => {
     //     // if (types.length > 0) {
     //     //   type = types[types.length - 1];
     //     // }
-    //     console.log('file type:', mime.extension(blob.type));
+    //     // console.log('file type:', mime.extension(blob.type));
     //     const exts = file.split('/');
     //     if (exts.length <= 0) {
     //       toastr.error(`文件错误，无法下载，请联系管理员\n${file}`);
@@ -71,7 +71,7 @@ const Preview = (props) => {
     //     let blobUrl = window.URL.createObjectURL(blob);
     //     let aElement = document.getElementById('downloadDiv');
     //     // let fileName = `${Date.now()}.${mime.extension(blob.type) || ''}`
-    //     console.log('fn:', fileName);
+    //     // console.log('fn:', fileName);
     //     aElement.href = blobUrl;
     //     aElement.download = fileName;
     //     aElement.click();

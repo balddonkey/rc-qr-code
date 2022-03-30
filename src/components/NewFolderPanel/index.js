@@ -9,13 +9,13 @@ const NewFolderPanel = (props) => {
   const [content, setContent] = useState('');
 
   const onInputChange = useCallback((e) => {
-    console.log('e:', e);
+    // console.log('e:', e);
     const value = e.target.value;
     setName(value);
   }, [])
 
   const onContentChange = useCallback((e) => {
-    console.log('on content change:', e);
+    // console.log('on content change:', e);
     const v = e.target.value;
     setContent(v);
   }, [])

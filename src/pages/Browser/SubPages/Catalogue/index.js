@@ -27,7 +27,7 @@ const Catalogue = (props) => {
   const getHomeData = useCallback(() => {
     RCNetwork.folder.getAll({userId: userId})
     .then(res => {
-      console.log('get all:', res);
+      // console.log('get all:', res);
       const data = res.data;
       setData(data);
     })
@@ -39,7 +39,7 @@ const Catalogue = (props) => {
   const loadById = useCallback(() => {
     RCNetwork.folder.getByParentId({parentId: id, userId})
     .then(res => {
-      console.log('on get childs:', res);
+      // console.log('on get childs:', res);
       const data = res.data;
       setData(data);
     })
@@ -49,7 +49,7 @@ const Catalogue = (props) => {
   }, [userId, id])
 
   const reload = useCallback(() => {
-    console.log('reload zzzzzz:', id);  
+    // console.log('reload zzzzzz:', id);  
     if (id !== null && id !== undefined && id > 0) {
       loadById();
     } else {
@@ -66,13 +66,13 @@ const Catalogue = (props) => {
   }, [id, userId, level])
 
   const _onChooseRow = useCallback((v, i, e) => {
-    console.log('on choose:', v);
+    // console.log('on choose:', v);
     const { id } = v;
     setSelectedId(id);
   }, [])
 
   const _onClickRow = useCallback((v, i, e) => {
-    console.log('on click row:', v);
+    // console.log('on click row:', v);
     const { id, type, picUrl } = v;
     if (type === 0) {
       navigate(`/browser/${userId}/catalogue/${id}/${v.lever + 1}`)
@@ -88,12 +88,12 @@ const Catalogue = (props) => {
       files
     })
     .then(res => {
-      console.log('on upload f:', res);
+      // console.log('on upload f:', res);
       setShowUploadPanel(false);
       reload();
     })
     .catch(e => {
-      console.log('on upload e:', e);
+      // console.log('on upload e:', e);
     })
   }, [reload, userId, id])
 
@@ -106,25 +106,25 @@ const Catalogue = (props) => {
       name, content: content, userId: userId, level: level, parentId: id
     })
     .then(res => {
-      console.log('on new succ:', res);
+      // console.log('on new succ:', res);
       setShowNewFolderPanel(false);
       reload();
     })
     .catch(e => {
-      console.log('on new e:', e);
+      // console.log('on new e:', e);
       toastr.error(e.msg);
     })
   }, [userId, id, level, reload])
 
   const onDownloadFile = useCallback(() => {
     const v = data.find((v, i, o) => v.id === selectedId)
-    console.log('will download:', v);
+    // console.log('will download:', v);
     RCNetwork.folder.downloadFile({
       id: v.id,
       userId: userId,
     })
     .then(res => {
-      console.log('get download data:', res);
+      // console.log('get download data:', res);
       const { zipNameUrl } = res;
       // return fetch(zipNameUrl, { method: 'GET'})
       // let aElement = document.getElementById('downloadDiv');
@@ -133,7 +133,7 @@ const Catalogue = (props) => {
       window.open(new URL(zipNameUrl), '_blank')
     })
     // .then(res => {
-    //   console.log('on download:', res);
+    //   // console.log('on download:', res);
     //   // let blob = new Blob([res.data], { type: 'application/zip'})
     //   // let url = window.URL.createObjectURL(blob);
     //   // const link = document.createElement('a');
@@ -144,7 +144,7 @@ const Catalogue = (props) => {
     //   // })
     // })
     .catch(e => {
-      console.log('get download failed:', e);
+      // console.log('get download failed:', e);
     })
   }, [selectedId, data, userId])
 

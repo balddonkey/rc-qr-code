@@ -53,7 +53,7 @@ class HTTPBase {
    */
   get(options) {
     const { method, data, baseUrl } = options;
-    console.log('on get request:', options);
+    // console.log('on get request:', options);
     return new Promise((resolve, reject) => {
       axios.get(`${baseUrl || this.baseUrl}${method}`, {
         params: data,
@@ -75,8 +75,8 @@ class HTTPBase {
   post(options) {
     const { method, data = {}, baseUrl = this.baseUrl } = options;
     let url = `${baseUrl}${method}`;
-    console.log(`POST: ${url}`)
-    console.log(JSON.stringify(data));
+    // console.log(`POST: ${url}`)
+    // console.log(JSON.stringify(data));
     return new Promise((resolve, reject) => {
       axios.post(url, data)
       .then(res => {
@@ -118,7 +118,7 @@ class HTTPBase {
       baseURL: baseUrl,
     })
     .then(res => {
-      console.log('upload succ:', res);
+      // console.log('upload succ:', res);
       return Promise.resolve(res);
     })
   }

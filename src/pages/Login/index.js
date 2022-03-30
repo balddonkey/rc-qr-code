@@ -20,7 +20,7 @@ const Login = (props) => {
   }, [phone, password])
 
   const goToRegister = useCallback(() => {
-    console.log('go to register');
+    // console.log('go to register');
     navigate('/register')
   }, [])
   const onPhoneChanged = useCallback((e) => {
@@ -33,19 +33,19 @@ const Login = (props) => {
   }, []);
 
   const doLogin = useCallback(() => {
-    console.log('do login');
+    // console.log('do login');
     RCNetwork.user.login({
       phone, password
     })
     .then(res => {
-      console.log('on login:', res);
+      // console.log('on login:', res);
       const user = res.data;
       UserManager.saveUser(user);
       toastr.success('登陆成功')
       navigate(`/browser/${user.id}`)
     })
     .catch(e => {
-      console.log('on login err:', e);
+      // console.log('on login err:', e);
       toastr.error(`登陆失败，${e.msg}`);
     })
   }, [phone, password])

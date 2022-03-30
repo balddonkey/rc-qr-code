@@ -12,7 +12,7 @@ const UploadPanel = (props) => {
   const [files, setFiles] = useState(null);
 
   const onDrop = useCallback((files) => {
-    console.log('onDrop:', files);
+    // console.log('onDrop:', files);
     if (files.length === 0) {
       toastr.info(`最多选择${_MaxFiles}个文件`)
     }
@@ -27,7 +27,7 @@ const UploadPanel = (props) => {
   } = useDropzone({ onDrop, maxFiles: _MaxFiles })
 
   const onChooseFile = useCallback((e) => {
-    console.log('on choose file:', inputRef.current);
+    // console.log('on choose file:', inputRef.current);
     inputRef.current.click();
   }, [inputRef]);
 

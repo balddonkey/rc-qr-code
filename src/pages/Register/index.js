@@ -44,19 +44,19 @@ const Register = (props) => {
   }, []);
 
   const doRegister = useCallback(() => {
-    console.log('do register');
+    // console.log('do register');
     RCNetwork.user.register({
       name: userName,
       phone, password
     })
     .then(res => {
-      console.log('on reg:', res);
+      // console.log('on reg:', res);
       toastr.success('注册成功');
       navigate(-1);
     })
     .catch(e => {
       toastr.error(`注册失败，${e.msg}`);
-      console.log('on reg err:', e);
+      // console.log('on reg err:', e);
     })
   }, [userName, phone, password])
   return (

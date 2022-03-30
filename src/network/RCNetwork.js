@@ -7,7 +7,7 @@ import RCStateCode, { RCDomain, RCError } from "./RCStateCode";
 class RCRequester {
   
   _NetworkErrorHandle = (e) => {
-    console.log('request e:', e);
+    // console.log('request e:', e);
     if (e instanceof RCError) {
       return Promise.reject(e);
     } else {
@@ -19,7 +19,7 @@ class RCRequester {
   _RequestPreprocess = (res) => {
     const data = res.data;
     const { code, msg } = data;
-    console.log('Request res:', res);
+    // console.log('Request res:', res);
     // 请求成功
     if (code === RCStateCode.common.success) {
       return Promise.resolve(data);

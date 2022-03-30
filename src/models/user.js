@@ -15,7 +15,7 @@ const UserManager = {
    */
   getUser: () => {
     const userStr = window.localStorage.getItem(_UserLocalStorageKey);
-    console.log('get user:', userStr);
+    // console.log('get user:', userStr);
     let user = null;
     try {
       user = JSON.parse(userStr);
@@ -29,7 +29,7 @@ const UserManager = {
    * @param {User} user 用户
    */
   saveUser: (user) => {
-    console.log('save user:', user);
+    // console.log('save user:', user);
     window.localStorage.setItem(_UserLocalStorageKey, JSON.stringify(user));
   }
 }

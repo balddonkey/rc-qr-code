@@ -18,17 +18,17 @@ const Browser = (props) => {
   const [user, setUser] = useState(null);
   const { userId } = useParams();
 
-  console.log('asdfasdf:', window.location);
+  // console.log('asdfasdf:', window.location);
 
   const onLogout = useCallback((user) => {
-    console.log('on logout:', user);
+    // console.log('on logout:', user);
     RCNetwork.user.logout()
     navigate('/', {replace: true});
   }, [])
 
   useEffect(() => {
     const user = UserManager.getUser();
-    console.log('zzzz:', user);
+    // console.log('zzzz:', user);
     if (!user) {
       // navigate('/', {replace: true});
     } else {

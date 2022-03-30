@@ -8,17 +8,17 @@ import styles from './index.module.scss'
 
 const QRCodePreview = () => {
   const { url } = useParams();
-  console.log('uuu:', url);
+  // console.log('uuu:', url);
   const encodeUrl = encodeURIComponent(url);
   useLayoutEffect(() => {
     // const text = decodeURIComponent(url);
-    console.log('will gen qrcode:', encodeUrl);
+    // console.log('will gen qrcode:', encodeUrl);
     QRCode.toCanvas(document.getElementById('qrcode'), `${baseUrl}#/preview/${encodeUrl}`, {
       width: 300
     })
     .then(function (error) {
       if (error) console.error(error)
-      console.log('success!');
+      // console.log('success!');
     })
   }, [url])
   return (

@@ -50,7 +50,7 @@ class HTTPPageRequest {
 
   loadMore() {
     if (!this._hasMore) {
-      console.log('没有更多数据了')
+      // console.log('没有更多数据了')
       return Promise.resolve([]);
     }
     if (this._loadMore) {

@@ -18,7 +18,7 @@ const Netutil = {
       // ]
     })
     .then(res => {
-      console.log('upload succ:', res);
+      // console.log('upload succ:', res);
       const { data } = res;
       return Promise.resolve(data);
     })

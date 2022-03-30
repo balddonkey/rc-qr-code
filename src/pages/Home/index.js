@@ -21,7 +21,7 @@ const Home = (props) => {
     setLoading(true);
     const fr = new FileReader();
     fr.onload = (t, ev) => {
-      console.log('on load file:', t, ev);
+      // console.log('on load file:', t, ev);
       setFile({
         show: t.target.result,
         origin: file
@@ -35,7 +35,7 @@ const Home = (props) => {
   }, [])
 
   const onDrop = useCallback((files) => {
-    console.log('onDrop:', files);
+    // console.log('onDrop:', files);
     const file = files[0];
     readFile(file);
   }, [readFile])
@@ -48,12 +48,12 @@ const Home = (props) => {
   } = useDropzone({ onDrop, maxFiles: 1 })
   
   const onChooseFile = useCallback((e) => {
-    console.log('on choose file:', inputRef.current);
+    // console.log('on choose file:', inputRef.current);
     inputRef.current.click();
   }, [inputRef]);
   
   const onUpload = useCallback((e) => {
-    console.log('on upload:', file)
+    // console.log('on upload:', file)
     if (file && file.origin) {
       Netutil.upload({
         file: file.origin
@@ -61,7 +61,7 @@ const Home = (props) => {
       .then(res => {
         const { picName } = res;
         const url = encodeURIComponent(picName);
-        console.log('uuu:', url);
+        // console.log('uuu:', url);
         navigate(`qrcode-preview/${url}`)
       })
       .catch(e => {
@@ -72,7 +72,7 @@ const Home = (props) => {
 
   useEffect(() => {
     const user = UserManager.getUser();
-    console.log('load user');
+    // console.log('load user');
     if (user) {
       navigate('/browser');
     } else {
