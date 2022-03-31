@@ -19,6 +19,11 @@ const Register = (props) => {
     return password === confirmPassword;
   }, [password, confirmPassword])
 
+  const phoneValid = useMemo(() => {
+    const re = new RegExp('^1[0-9]{10}$');
+    return re.test(phone);
+  }, [phone]);
+
   const dataValid = useMemo(() => {
     return userName && userName.length > 0
       && phone && phone.length > 0
@@ -45,6 +50,10 @@ const Register = (props) => {
 
   const doRegister = useCallback(() => {
     // console.log('do register');
+    if (!phoneValid) {
+      toastr.error('手机号码格式不正确');
+      return;
+    }
     RCNetwork.user.register({
       name: userName,
       phone, password
@@ -58,7 +67,7 @@ const Register = (props) => {
       toastr.error(`注册失败，${e.msg}`);
       // console.log('on reg err:', e);
     })
-  }, [userName, phone, password])
+  }, [userName, phone, phoneValid, password])
   return (
     <div className={styles['container']}>
       <Nav title='文件管理系统'/>
@@ -67,7 +76,7 @@ const Register = (props) => {
           注册
         </p>
         <Form.Control className={styles['input']} type="text" placeholder="请输入用户名" onChange={onUserNameChanged}/>
-        <Form.Control className={styles['input']} type="text" placeholder="请输入手机号码" onChange={onPhoneChanged}/>
+        <Form.Control className={`${styles['input']} ${!phoneValid && styles['input-error']}`} type="text" placeholder="请输入手机号码" onChange={onPhoneChanged}/>
         <Form.Control className={styles['input']} type="password" placeholder="请输入密码" onChange={onPasswordChanged}/>
         <Form.Control className={styles['input']} type="password" placeholder="请确认密码" onChange={onConfirmPasswordChanged}/>
         <div className={styles['password-diff']}>{!passwordIdentical && '两次密码不相同，请重新输入'}</div>

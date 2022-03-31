@@ -19,6 +19,11 @@ const Login = (props) => {
       && password && password.length > 0
   }, [phone, password])
 
+  const phoneValid = useMemo(() => {
+    const re = new RegExp('^1[0-9]{10}$');
+    return re.test(phone);
+  }, [phone]);
+
   const goToRegister = useCallback(() => {
     // console.log('go to register');
     navigate('/register')
@@ -34,6 +39,10 @@ const Login = (props) => {
 
   const doLogin = useCallback(() => {
     // console.log('do login');
+    if (!phoneValid) {
+      toastr.error('手机号码格式不正确');
+      return;
+    }
     RCNetwork.user.login({
       phone, password
     })
@@ -48,7 +57,7 @@ const Login = (props) => {
       // console.log('on login err:', e);
       toastr.error(`登陆失败，${e.msg}`);
     })
-  }, [phone, password])
+  }, [phoneValid, phone, password])
 
   return (
     <div className={styles['container']}>
@@ -57,7 +66,7 @@ const Login = (props) => {
         <p className={styles['login-title']}>
           登录
         </p>
-        <Form.Control className={styles['input']} type="text" placeholder="请输入手机号码" onChange={onPhoneChanged}/>
+        <Form.Control className={`${styles['input']} ${!phoneValid && styles['input-error']}`} type="text" placeholder="请输入手机号码" onChange={onPhoneChanged}/>
         <Form.Control className={styles['input']} type="password" placeholder="请输入密码" onChange={onPasswordChanged}/>
         <Button className={styles['login-btn']} onClick={doLogin} disabled={!dataValid}>登录</Button>
         <Button className={styles['register-btn']} onClick={goToRegister}>注册账号</Button>

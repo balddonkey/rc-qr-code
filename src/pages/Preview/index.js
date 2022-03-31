@@ -17,12 +17,20 @@ const Preview = (props) => {
   const { id, userId } = useParams();
   // console.log('ppp zzz:', useParams(), useLocation());
   const [file, setFile] = useState(null);
+  const [user, setUser] = useState(null);
   const [showQRPanel, setShowQRPanel] = useState(false);
 
+  const isOwnFolder = useMemo(() => {
+    console.log('is own folder:', user, userId);
+    return user && (parseInt(user.id) === parseInt(userId));
+  }, [user, userId])
+
   useEffect(() => {
+    const user = UserManager.getUser();
+    setUser(user);
     RCNetwork.folder.getInfo({id, userId})
     .then(res => {
-      // console.log('get folder info:', res);
+      console.log('get folder info:', res);
       setFile(res.data);
     })
     .catch(e => {
@@ -93,11 +101,13 @@ const Preview = (props) => {
         placeholder={require('../../assets/file.png')} onErrorCapture={e => e.target.src = require('../../assets/file.png')}
         />
         <div className={styles['file-name']}>
-          <a href={previewUrl}>{file && file.picUrl}</a>
+          <a href={previewUrl}>
+            点击预览：{file && file.name}
+          </a>
         </div>
         <div className={styles['btn-container']}>
           <Button className={styles['download-btn']} onClick={download}>下载</Button>
-          <Button className={styles['download-btn']} onClick={onShowQRPanel}>生成二维码</Button>
+          {isOwnFolder && <Button className={styles['download-btn']} onClick={onShowQRPanel}>生成二维码</Button>}
         </div>
       </div> 
       <a id='downloadDiv'></a>

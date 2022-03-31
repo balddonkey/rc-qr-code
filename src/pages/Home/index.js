@@ -74,9 +74,13 @@ const Home = (props) => {
     const user = UserManager.getUser();
     // console.log('load user');
     if (user) {
-      navigate('/browser');
+      navigate(`/browser/${user.id}`, {
+        replace: true,
+      });
     } else {
-      navigate('/login')
+      navigate('/login', {
+        replace: true
+      })
     }
   }, [])
 

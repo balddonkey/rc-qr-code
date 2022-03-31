@@ -7,8 +7,8 @@ import { baseUrl } from '../../utils/netutil';
 
 const QRCodePanel = (props) => {
   const { url, show = true, onHide } = props;
-  // console.log('uuu:', url);
   useLayoutEffect(() => {
+    console.log('uuu:', url);
     // navigate(`/browser/preview/${id}/${user.id}`)
     QRCode.toCanvas(document.getElementById('qrcode'), url, {
       width: 300
